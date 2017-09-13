@@ -21,4 +21,4 @@ WIP
 Checkout one of the two options below:
 
 1. [LICENSE](https://github.com/selfup/hubv/blob/master/LICENSE)
-1. `LICENSE.md` file at the root of this Directory
+1. `LICENSE` file at the root of this Directory
