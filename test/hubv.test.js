@@ -1,5 +1,5 @@
-const Vue = require('vue');
-const HubV = require('../lib');
+import Vue from 'vue';
+import HubV from '../lib';
 
 test('HubV can install correctly and can be called from Vue instance', () => {
   Vue.use(HubV);
@@ -34,11 +34,9 @@ test('HubV can update parent state from child', () => {
   });
 
   vm.$hubv.dispatch({ action: 'capMsg' });
-
   expect(vm.msg).toBe('WOW');
 
   vm.$hubv.dispatch({ action: 'doesnotexist' });
-
   expect(vm.msg).toBe('WOW');
 
   vm.$destroy();
