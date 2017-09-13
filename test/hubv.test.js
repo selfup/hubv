@@ -36,4 +36,10 @@ test('HubV can update parent state from child', () => {
   vm.$hubv.dispatch({ action: 'capMsg' });
 
   expect(vm.msg).toBe('WOW');
+
+  vm.$hubv.dispatch({ action: 'doesnotexist' });
+
+  expect(vm.msg).toBe('WOW');
+
+  vm.$destroy();
 });
