@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MilkyWay!</title>
+    <script defer src="main.bundle.js"></script>
+  </head>
+
+  <body>
+    <h1>MilkyWay!</h1>
+    <ideas></ideas>
+    <script>
+      let MW;
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const mw = MilkyWay
+        MW = mw
+
+        MW.createSystem(class App {
+          constructor() {
+            this.componentTag = 'Ideas'
+
+            // bind
+            this.handleSubmit = this.handleSubmit.bind(this)
+            this.handleTitleInput = this.handleTitleInput.bind(this)
+            this.handleBodyInput = this.handleBodyInput.bind(this)
+            this.handleClearIdeas = this.handleClearIdeas.bind(this)
+            this.clearInputs = this.clearInputs.bind(this)
+          }
+
+          init() {
+            return {
+              title: '',
+              body: '',
+            }
+          }
+
+          handleTitleInput(value) {
+            this.star.title = value
+          }
+
+          handleBodyInput(value) {
+            this.star.body = value
+          }
+
+          handleSubmit() {
+            const newIdea = {
+              title: this.star.title,
+              body: this.star.body,
+            }
+
+            MW.state.Idealoader.star.ideas.unshift(newIdea)
+            this.clearInputs()
+            MW.updateState(MW.state.Idealoader)
+          }
+
+          clearInputs() {
+            this.star.title = ''
+            this.star.body = ''
+            MW.updateState(this)
+          }
+
+          handleClearIdeas() {
+            MW.state.Idealoader.star.ideas = []
+            MW.updateState(MW.state.Idealoader)
+          }
+
+          get template() {
+            return (`
+              <section>
+                <br><br>
+                <input
+                  name="title"
+                  onchange="MW.state.Ideas.handleTitleInput(this.value)"
+                >
+                <br><br>
+                <input
+                  name="body"
+                  onchange="MW.state.Ideas.handleBodyInput(this.value)"
+                >
+                <br><br>
+                <button
+                  onclick="MW.state.Ideas.handleSubmit()"
+                >
+                  Submit
+                </button>
+                <button
+                  onclick="MW.state.Ideas.handleClearIdeas()"
+                >
+                  Clear Ideas
+                </button>
+                <Idealoader></Idealoader>
+              </section>
+            `.trim())
+          }
+        })
+
+        // create IdeaLoader
+        MW.createSystem(class Ideas {
+          constructor() {
+            this.componentTag = 'Idealoader'
+
+            // bind
+            this.loadIdeas = this.loadIdeas.bind(this)
+          }
+
+          init() {
+            const local = MW.state.Idealoader
+            if (local) return local.star
+            return { ideas: [] }
+          }
+
+          loadIdeas() {
+            return this.star.ideas.map(idea => `
+              <article>
+                <h3>Title:</h3>
+                <h4>${idea.title}</h4>
+                <h3>Body:</h3>
+                <h4>${idea.body}</h4>
+                <hr />
+              </article>
+            `.trim()).join('')
+          }
+
+          get template() {
+            const loadIdeas = MW.state.Idealoader.loadIdeas
+
+            return (`
+              <section>
+                ${loadIdeas()}
+              </section>
+            `.trim())
+          }
+        })
+      })
+    </script>
+  </body>
+</html>
