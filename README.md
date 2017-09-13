@@ -18,4 +18,7 @@ WIP
 
 ### LICENSE
 
-Checkout the `LICENSE.md` file at the root of this Directory
+Checkout one of the two options below:
+
+1. [LICENSE](https://github.com/selfup/hubv/blob/master/LICENSE)
+1. `LICENSE.md` file at the root of this Directory
