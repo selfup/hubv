@@ -4,6 +4,8 @@ Vue EventHub delegator!
 
 Alternative to Vuex using Vue's built in Hub system.
 
+[EventHub](https://vuejs.org/v2/guide/migration.html#dispatch-and-broadcast-replaced)
+
 ### ES5
 
 Written in ES5 to reduce bundle size during UMD build step
