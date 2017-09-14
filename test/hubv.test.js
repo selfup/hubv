@@ -33,6 +33,8 @@ test('HubV can update parent state from child', () => {
     },
   });
 
+  expect(vm.msg).toBe('wow');
+
   vm.$hubv.dispatch({ action: 'capMsg' });
   expect(vm.msg).toBe('WOW');
 
