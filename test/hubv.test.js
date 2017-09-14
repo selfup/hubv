@@ -21,6 +21,7 @@ test('HubV can update parent state from child', () => {
     methods: {
       capMsg() {
         this.msg = this.msg.toUpperCase();
+        return this.msg;
       },
     },
     created() {
@@ -35,11 +36,12 @@ test('HubV can update parent state from child', () => {
 
   expect(vm.msg).toBe('wow');
 
-  vm.$hubv.dispatch({ action: 'capMsg' });
+  const capMsg = vm.$hubv.dispatch({ action: 'capMsg' });
+  expect(capMsg).toBe('WOW');
   expect(vm.msg).toBe('WOW');
 
-  vm.$hubv.dispatch({ action: 'doesnotexist' });
-  expect(vm.msg).toBe('WOW');
+  const doesNotExist = vm.$hubv.dispatch({ action: 'doesnotexist' });
+  expect(doesNotExist).toBe(null);
 
   vm.$destroy();
 });
